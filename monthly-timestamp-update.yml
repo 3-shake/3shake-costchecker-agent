@@ -1,0 +1,44 @@
+name: Monthly Timestamp Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  check-and-update-timestamp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git identity
+        run: |
+          git config --global user.name 'github-actions-bot'
+          git config --global user.email 'github-actions-bot@users.noreply.github.com'
+
+      - name: Check for GithubActionTimeStamp branch
+        run: |
+          if git branch --list GithubActionTimeStamp; then
+            echo "GithubActionTimeStamp branch already exists."
+          else
+            echo "Creating GithubActionTimeStamp branch."
+            git checkout --orphan GithubActionTimeStamp
+            git rm -rf .
+            touch .gitkeep
+            git add .gitkeep
+            git commit -m "Initial commit on GithubActionTimeStamp branch"
+            git push origin GithubActionTimeStamp
+          fi
+
+      - name: Update timestamp
+        run: |
+          git fetch --all
+          git checkout GithubActionTimeStamp || git checkout -b GithubActionTimeStamp
+          date +'%Y-%m-%d %H:%M:%S' > timestamp.txt
+          git add timestamp.txt
+          git commit -m "Update timestamp"
+          git push origin GithubActionTimeStamp
