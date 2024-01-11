@@ -7,7 +7,7 @@
 # 使い方
 1. Google Cloud側での設定が事前に必要です。詳細は以下の記事をご覧ください。
    - [PaLM API for textで作るGoogle Cloudコストチェッカー](https://sreake.com/blog/google-cloud-cost-check-with-palm-api-for-text/)
-   - **記事公開後にURL->**[Google Cloudコスト増減の定期監視とアドバイスを行うCostChecker-Agentの紹介]()
+   - [Google Cloudコスト増減の定期監視とアドバイスを行うCostChecker-Agentの紹介](https://sreake.com/blog/gemini-pro-introduction/)
 2. ```costchecker-agent.yml```と```monthly-timestamp-update.yml```を自身のリポジトリの```.github/workflows```配下に置きます。
 3. ```Settings > Actions > General > Workflow permissions```の```Read repository contents permission```を```Read and write permissions```に設定します。
 4. 環境変数を設定します。
